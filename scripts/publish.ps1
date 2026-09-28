@@ -6,8 +6,9 @@ $repo = 'MuhammadWW/PersonalWebsite'
 
 Write-Host 'Signing in to GitHub (a browser window may open)...'
 $cred = "protocol=https`nhost=github.com`n`n" | git credential fill
-$token = ($cred | Select-String '^password=(.+)$').Matches | ForEach-Object { $_.Groups[1].Value } | Select-Object -First 1
-if (-not $token) { throw 'GitHub sign-in did not complete.' }
+if ($LASTEXITCODE -ne 0 -or -not $cred) { throw 'GitHub sign-in did not complete.' }
+$token = ($cred | Where-Object { $_ -like 'password=*' } | Select-Object -First 1) -replace '^password=', ''
+if (-not $token) { throw 'GitHub sign-in did not return a token.' }
 
 $headers = @{
   Authorization          = "Bearer $token"
