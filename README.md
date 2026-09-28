@@ -39,7 +39,9 @@ To add a case study, add an entry to `projects` in `src/content/projects.ts`. It
 Every push to `main` runs `.github/workflows/deploy.yml`, which:
 
 1. builds the site for the root of a domain and force-pushes it to the **`deploy`** branch. Porkbun static hosting can serve that branch directly.
-2. publishes the site to **GitHub Pages**. Until a custom domain is set in the repo's Pages settings, this is a preview at `https://muhammadww.github.io/personalwebsite/`. That preview is built under `/personalwebsite` and marked `noindex`.
+2. publishes the site to **GitHub Pages**. Until a custom domain is set in the repo's Pages settings, this is a preview at `https://muhammadww.github.io/PersonalWebsite/`. That preview is built under `/PersonalWebsite` and marked `noindex`.
+
+For the very first publish, run `powershell -ExecutionPolicy Bypass -File scripts/publish.ps1`. It signs in to GitHub, sets the Pages source to GitHub Actions and pushes `main`. To do the same by hand, go to **Settings → Pages → Source: GitHub Actions**, then run `git push -u origin main`.
 
 ### Pointing wadiwala.net at the site
 
@@ -51,12 +53,12 @@ The domain is registered at Porkbun. First make sure it uses Porkbun's nameserve
    - `A` records for the root host (blank) → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
    - `CNAME` for `www` → `muhammadww.github.io`
 2. On GitHub: **Settings → Pages → Custom domain** → `wadiwala.net` → Save. Tick **Enforce HTTPS** once the certificate is issued (usually within the hour).
-3. **Actions → Deploy → Run workflow**, so the next build drops the `/personalwebsite` prefix.
+3. **Actions → Deploy → Run workflow**, so the next build drops the `/PersonalWebsite` prefix.
 
 **Option B: Porkbun static hosting**
 
 1. In Porkbun, open **Website** for wadiwala.net and choose static hosting.
-2. Use **Connect to GitHub** and select repository `personalwebsite`, branch `deploy`.
+2. Use **Connect to GitHub** and select repository `PersonalWebsite`, branch `deploy`. The branch appears after the first deploy has run.
 3. Porkbun adds the DNS records itself. Porkbun hosting is a paid add-on after its trial.
 
 Don't set up both options: one set of DNS records wins.
