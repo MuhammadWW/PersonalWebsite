@@ -1,12 +1,12 @@
 "use client";
 
-import { Briefcase, FileText, FlaskConical, History, House, Mail, User } from "lucide-react";
+import { Briefcase, Earth, FileText, FlaskConical, History, House, Mail, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { profile } from "@/content/profile";
 import Dock, { type DockEntry } from "./ui/dock";
 
-const SECTIONS = ["intro", "work", "lab", "experience", "about", "contact"] as const;
+const SECTIONS = ["intro", "work", "lab", "experience", "abroad", "about", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
 
 function LinkedInMark() {
@@ -52,6 +52,7 @@ export default function SiteDock() {
     { icon: <Briefcase {...icon} />, label: "Projects", href: "/#work", active: current === "work" },
     { icon: <FlaskConical {...icon} />, label: "Demos", href: "/#lab", active: current === "lab" },
     { icon: <History {...icon} />, label: "Experience", href: "/#experience", active: current === "experience", hideOnMobile: true },
+    { icon: <Earth {...icon} />, label: "Abroad", href: "/#abroad", active: current === "abroad", hideOnMobile: true },
     { icon: <User {...icon} />, label: "About", href: "/#about", active: current === "about" },
     { icon: <Mail {...icon} />, label: "Contact", href: "/#contact", active: current === "contact" },
     "divider",

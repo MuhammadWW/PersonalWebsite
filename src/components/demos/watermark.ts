@@ -147,13 +147,30 @@ function erf(x: number): number {
   return s * y;
 }
 
+export function zScore(G: number, T: number, gamma: number): number {
+  return T > 0 ? (G - gamma * T) / Math.sqrt(T * gamma * (1 - gamma)) : 0;
+}
+
+/** One-sided p-value; switches to the Mills-ratio expansion in the tail, where 1 - erf loses precision. */
+export function pValue(z: number): number {
+  if (z < 3.5) return 0.5 * (1 - erf(z / Math.SQRT2));
+  const pdf = Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  const z2 = z * z;
+  return (pdf / z) * (1 - 1 / z2 + 3 / (z2 * z2) - 15 / (z2 * z2 * z2));
+}
+
+/** Green/red status of an evenly spaced sample of the vocabulary, for the list seeded by `prev`. */
+export function listSample(key: string, prev: string, gamma: number, n: number): boolean[] {
+  const step = Math.max(1, Math.floor(VOCAB.length / n));
+  return Array.from({ length: n }, (_, j) => isGreen(key, prev, VOCAB[(j * step) % VOCAB.length], gamma));
+}
+
 export type Detection = { T: number; G: number; z: number; p: number; greens: boolean[] };
 
 export function detect(tokens: string[], key: string, gamma: number): Detection {
   const greens = tokens.map((tok, i) => (i === 0 ? false : isGreen(key, tokens[i - 1], tok, gamma)));
   const T = Math.max(0, tokens.length - 1);
   const G = greens.filter(Boolean).length;
-  const z = T > 0 ? (G - gamma * T) / Math.sqrt(T * gamma * (1 - gamma)) : 0;
-  const p = 0.5 * (1 - erf(z / Math.SQRT2));
-  return { T, G, z, p, greens };
+  const z = zScore(G, T, gamma);
+  return { T, G, z, p: pValue(z), greens };
 }

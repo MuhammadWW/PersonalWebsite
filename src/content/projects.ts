@@ -1,16 +1,6 @@
 export type Lens = "product" | "engineering" | "program";
 
-export type DemoId =
-  | "audit"
-  | "exports"
-  | "logs"
-  | "doorfit"
-  | "mentor"
-  | "reflection"
-  | "watermark"
-  | "landing"
-  | "voice"
-  | "parts";
+export type DemoId = "doorfit" | "reflection" | "watermark" | "landing" | "voice" | "parts";
 
 export type Section = {
   heading: string;
@@ -123,12 +113,7 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "The real tool runs on confidential Microsoft cost data, so it isn't shown here. The demo and the 3D model are rebuilds with made-up invoices: the steps and checks follow the real method, and the names, amounts and data are invented.",
-    demo: {
-      id: "audit",
-      title: "Audit wizard with made-up data",
-      blurb: "Generate a quarter of fake invoices, let the rules classify them, review what's left by purchase order and check that the totals reconcile.",
-    },
+      "The real tool runs on confidential Microsoft cost data, so it isn't shown here. The 3D model is an illustration with made-up data: the steps follow the real method, and every name, amount and screen is invented.",
     cover: "/images/work/audit-tool.jpg",
     featured: true,
   },
@@ -194,14 +179,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    boundary:
-      "This was a fellowship design exercise, not a launched JPMorgan Chase product. The prototype is my own rebuild of the concept, with fictional mentors and fictional internal tools.",
-    demo: {
-      id: "mentor",
-      title: "Mentor matching and resource search",
-      blurb: "Answer four questions to see how compatibility is scored, then search a fictional directory of internal tools in plain English.",
-    },
-    cover: "/images/work/mentorship-hub.jpg",
+    boundary: "This was a fellowship design exercise, not a launched JPMorgan Chase product, and no internal material is shown here.",
     featured: true,
   },
   {
@@ -262,14 +240,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    boundary:
-      "The report, data and workspace are internal. The explainer uses a fictional report to show why filter parameters and captured state produce different PDFs.",
-    demo: {
-      id: "exports",
-      title: "Filters vs. captured state",
-      blurb: "Pick a project and export it both ways to see why the first method prints the wrong page.",
-    },
-    cover: "/images/work/report-exports.jpg",
+    boundary: "The report, data and workspace are internal, so none of them are shown here.",
     featured: true,
   },
   {
@@ -331,14 +302,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    boundary:
-      "Network names, device identifiers and operating details stay internal. The explorer runs on logs I generated to show the method. None of it is station data.",
-    demo: {
-      id: "logs",
-      title: "Wireless log explorer",
-      blurb: "Parse a raw access point log, view each device's connection history as a timeline and let the detectors flag the patterns.",
-    },
-    cover: "/images/work/iss-wifi.jpg",
+    boundary: "Network names, device identifiers, logs and operating details stay internal. Nothing on this page is station data.",
     featured: true,
   },
   {
@@ -534,7 +498,7 @@ export const projects: Project[] = [
     lenses: ["engineering"],
     summary:
       "Research on statistical watermarks for language models: bias generation toward a secret, pseudo-random “green list” of words, then detect the bias later with a hypothesis test.",
-    outcome: "An interactive lab showing the tradeoff between detectability, text quality and robustness.",
+    outcome: "An animated detector that shows how much evidence a watermark leaves, and how edits wash it out.",
     status: "Research topic; lab built for this site",
     stack: ["Hypothesis testing", "Token-level watermarking", "TypeScript (lab)"],
     facts: [
@@ -566,11 +530,11 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "The lab is a teaching rebuild with a small vocabulary and a bigram model. It is not a real language model and not my research code. The method follows the published paper.",
+      "The detector runs on a teaching rebuild with a small vocabulary and a bigram model. It is not a real language model and not my research code. The method follows the published paper, and the human-written sample is President Kennedy's 1962 speech at Rice University.",
     demo: {
       id: "watermark",
-      title: "Watermark lab",
-      blurb: "Generate text with and without a watermark, attack it and watch the z-score decide.",
+      title: "Watermark detector",
+      blurb: "Watch every word get checked against a secret green list, and the z-score decide whether the text carries the watermark.",
     },
     cover: "/images/work/watermark-lab.jpg",
     featured: true,

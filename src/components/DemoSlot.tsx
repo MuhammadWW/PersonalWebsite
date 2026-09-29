@@ -9,13 +9,9 @@ function Loading() {
 }
 
 const demos: Record<DemoId, ComponentType> = {
-  audit: dynamic(() => import("./demos/AuditWizard"), { ssr: false, loading: Loading }),
-  exports: dynamic(() => import("./demos/ExportExplainer"), { ssr: false, loading: Loading }),
-  logs: dynamic(() => import("./demos/LogExplorer"), { ssr: false, loading: Loading }),
   doorfit: dynamic(() => import("./demos/DoorFit"), { ssr: false, loading: Loading }),
-  mentor: dynamic(() => import("./demos/MentorMatch"), { ssr: false, loading: Loading }),
   reflection: dynamic(() => import("./demos/ReflectionDemo"), { ssr: false, loading: Loading }),
-  watermark: dynamic(() => import("./demos/WatermarkLab"), { ssr: false, loading: Loading }),
+  watermark: dynamic(() => import("./demos/WatermarkDetector"), { ssr: false, loading: Loading }),
   landing: dynamic(() => import("./demos/LandingSim"), { ssr: false, loading: Loading }),
   voice: dynamic(() => import("./demos/VoiceLesson"), { ssr: false, loading: Loading }),
   parts: dynamic(() => import("./demos/PartPicker"), { ssr: false, loading: Loading }),

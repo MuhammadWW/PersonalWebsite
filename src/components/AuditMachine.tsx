@@ -26,7 +26,7 @@ export default function AuditMachine() {
   }, []);
 
   return (
-    <div ref={ref} className="h-[560px] overflow-hidden rounded-[28px] bg-[#0d0e13] md:h-[680px]">
+    <div ref={ref} data-capture="machine" className="h-[560px] overflow-hidden rounded-[28px] bg-[#0d0e13] md:h-[680px]">
       {near ? <AgenticFactory3D height="100%" /> : null}
     </div>
   );

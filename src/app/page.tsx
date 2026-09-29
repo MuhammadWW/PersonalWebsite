@@ -1,3 +1,4 @@
+import AbroadSection from "@/components/AbroadSection";
 import IntroExperience from "@/components/intro/IntroExperience";
 import { AboutSection, ContactSection, ExperienceSection, LabSection, WorkSection } from "@/components/HomeSections";
 
@@ -9,6 +10,7 @@ export default function Home() {
         <WorkSection />
         <LabSection />
         <ExperienceSection />
+        <AbroadSection />
         <AboutSection />
         <ContactSection />
       </main>

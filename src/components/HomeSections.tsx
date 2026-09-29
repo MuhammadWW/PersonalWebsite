@@ -1,25 +1,15 @@
 import { ArrowUpRight, FileText, Mail } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { about, profile } from "@/content/profile";
 import { education, experience, recognition } from "@/content/experience";
 import { projects } from "@/content/projects";
 import { withBase } from "@/lib/site";
+import MissionPatch from "./MissionPatch";
 import ProjectGlyph from "./ProjectGlyph";
 import WorkIndex from "./WorkIndex";
 import Carousel, { type CarouselItem } from "./ui/carousel";
 import { ContainerScroll } from "./ui/container-scroll-animation";
-
-/** Outline of the Material 3 Expressive 12-sided "cookie" shape, in objectBoundingBox units. */
-function cookiePath(lobes = 12, depth = 0.075, samples = 288) {
-  const points: string[] = [];
-  for (let i = 0; i < samples; i++) {
-    const t = (i / samples) * Math.PI * 2;
-    const r = 0.5 * (1 - depth + depth * Math.cos(lobes * t));
-    points.push(`${(0.5 + r * Math.cos(t - Math.PI / 2)).toFixed(4)} ${(0.5 + r * Math.sin(t - Math.PI / 2)).toFixed(4)}`);
-  }
-  return `M${points.join("L")}Z`;
-}
+import WatermarkShowcase from "./WatermarkShowcase";
 
 function SectionHead({ title, children }: { title: string; children?: React.ReactNode }) {
   return (
@@ -70,26 +60,19 @@ export function LabSection() {
         titleComponent={
           <div className="px-4">
             <h2 className="display-l">Demos</h2>
-            <p className="lead muted mx-auto mt-5 max-w-[54ch]">
-              Most case studies end with a small working version of the tool, rebuilt with made-up data. This one is the audit wizard from my
-              Microsoft internship.
+            <p className="lead muted mx-auto mt-5 max-w-[56ch]">
+              Some projects end with a small working version, rebuilt for this site. This one comes from my research on watermarking language
+              model output: every word is checked against a secret green list, and a z-score decides whether the text carries the watermark.
             </p>
             <div className="mt-8 flex justify-center">
-              <Link href="/work/audit-tool/#demo" className="btn btn-primary">
-                Open the audit demo
+              <Link href="/work/watermark-lab/#demo" className="btn btn-primary">
+                Open the watermark lab
               </Link>
             </div>
           </div>
         }
       >
-        <Image
-          src={withBase("/images/work/audit-showcase.jpg")}
-          alt="The audit wizard demo reviewing made-up invoice lines grouped by purchase order"
-          fill
-          sizes="(min-width: 1024px) 1024px, 100vw"
-          className="object-cover object-left-top"
-          draggable={false}
-        />
+        <WatermarkShowcase />
       </ContainerScroll>
       <div className="wrap -mt-40 pb-24 md:-mt-64">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -182,23 +165,10 @@ export function ExperienceSection() {
 export function AboutSection() {
   return (
     <section id="about" className="section scroll-mt-16">
-      <svg width="0" height="0" className="absolute" aria-hidden focusable="false">
-        <defs>
-          <clipPath id="m3-cookie-12" clipPathUnits="objectBoundingBox">
-            <path d={cookiePath()} />
-          </clipPath>
-        </defs>
-      </svg>
       <div className="wrap grid gap-12 md:grid-cols-12 md:items-center">
         <div className="md:col-span-5">
-          <div className="shape-cookie relative aspect-square w-full max-w-[420px] bg-primary-container">
-            <Image
-              src={withBase("/images/muhammad-wadiwala.jpg")}
-              alt="Portrait of Muhammad Wadiwala"
-              fill
-              sizes="(min-width: 768px) 420px, 90vw"
-              className="object-cover object-top"
-            />
+          <div className="w-full max-w-[440px]">
+            <MissionPatch src={withBase("/images/muhammad-wadiwala.jpg")} name={profile.name} line="Texas A&M · Class of 2027" />
           </div>
         </div>
         <div className="md:col-span-7">
