@@ -1,7 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { lensLabels, projects, type Project } from "@/content/projects";
-import AuditMachine from "./AuditMachine";
 import DemoSlot from "./DemoSlot";
 import ProjectGlyph from "./ProjectGlyph";
 
@@ -85,21 +84,6 @@ export default function CaseStudy({ project }: { project: Project }) {
           {project.role}
         </p>
       </section>
-
-      {project.slug === "audit-tool" ? (
-        <section className="wrap mt-14" aria-labelledby="machine-title">
-          <div className="mb-5 grid gap-3 md:grid-cols-12 md:items-end">
-            <h2 id="machine-title" className="display-m md:col-span-7">
-              The five steps, as a machine
-            </h2>
-            <p className="muted md:col-span-5">
-              A 3D model of the pipeline, with made-up data on every screen. Switch to &ldquo;One line&rdquo; to follow a single invoice row
-              from the export to sign-off, or click a station to see what it does.
-            </p>
-          </div>
-          <AuditMachine />
-        </section>
-      ) : null}
 
       <article className="wrap py-16 sm:py-20">
         <div className="grid gap-x-12 md:grid-cols-12">

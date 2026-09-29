@@ -112,9 +112,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    boundary:
-      "The real tool runs on confidential Microsoft cost data, so it isn't shown here. The 3D model is an illustration with made-up data: the steps follow the real method, and every name, amount and screen is invented.",
-    cover: "/images/work/audit-tool.jpg",
+    boundary: "The real tool runs on confidential Microsoft cost data, so none of it is shown here.",
     featured: true,
   },
   {

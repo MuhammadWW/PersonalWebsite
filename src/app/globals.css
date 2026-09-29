@@ -1167,19 +1167,145 @@ input[type="radio"] {
 
 /* ---------- intro ---------- */
 
+@property --v {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
 .intro {
   position: relative;
-  height: 720vh;
-  background: #0b0e12;
+  height: 100vh;
+  height: 100svh;
+  background: #05070b;
   color: var(--color-inverse-on-surface);
 }
 
 .intro-stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+  position: relative;
+  height: 100%;
   overflow: hidden;
+}
+
+.intro-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(5 7 11 / 0.62) 0%, rgb(5 7 11 / 0.28) 38%, transparent 62%);
+}
+
+@media (max-aspect-ratio: 4/5) {
+  .intro-scrim {
+    background: linear-gradient(180deg, rgb(5 7 11 / 0.66) 0%, rgb(5 7 11 / 0.3) 36%, transparent 58%);
+  }
+}
+
+/* Steps: the outgoing beat drops away fast, the incoming one builds letter by letter. */
+.intro[data-mode="webgl"] .beat,
+.intro[data-mode="loading"] .beat {
+  transition: --v 0.22s ease-in;
+}
+
+.intro[data-mode="webgl"] .beat[data-active="true"],
+.intro[data-mode="loading"] .beat[data-active="true"] {
+  --v: 1;
+  transition: --v 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.28s;
+}
+
+.intro[data-mode="loading"] .beat-first[data-active="true"] {
+  transition: none;
+}
+
+.intro[data-mode="webgl"] .beat:not([data-active="true"]) .interactive {
+  pointer-events: none;
+}
+
+.intro-rail {
+  position: absolute;
+  right: calc(var(--page-pad) - 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 3;
+}
+
+.intro-rail button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 30px;
+  height: 22px;
+  border: 0;
+  padding: 0 10px 0 0;
+  background: none;
+  color: #f6f5fb;
+  cursor: pointer;
+}
+
+.intro-rail button::after {
+  content: "";
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.45;
+  transition:
+    width 250ms ease,
+    opacity 250ms ease;
+}
+
+.intro-rail button:hover::after,
+.intro-rail button:focus-visible::after {
+  opacity: 0.9;
+}
+
+.intro-rail button[aria-current="step"]::after {
+  width: 20px;
+  opacity: 1;
+  background: #ffb27a;
+}
+
+.intro-rail span {
+  position: absolute;
+  right: 40px;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(6px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+  pointer-events: none;
+}
+
+.intro-rail button:hover span,
+.intro-rail button:focus-visible span,
+.intro-rail button[aria-current="step"] span {
+  opacity: 0.9;
+  transform: none;
+}
+
+@media (max-width: 720px) {
+  .intro-rail {
+    right: 2px;
+    top: auto;
+    bottom: calc(var(--dock-space) + 56px);
+    transform: none;
+  }
+
+  .intro-rail button {
+    height: 16px;
+  }
+
+  .intro-rail span {
+    display: none;
+  }
 }
 
 .intro-canvas {
@@ -1258,7 +1384,6 @@ input[type="radio"] {
 
 .hud,
 .skip-intro,
-.houston-tag,
 .scroll-cue {
   font-size: 0.72rem;
   font-weight: 500;
@@ -1287,8 +1412,12 @@ input[type="radio"] {
   align-items: center;
   gap: 10px;
   color: #f6f5fb;
-  opacity: calc(1 - var(--p, 0) * 12);
+  transition: opacity 300ms ease;
   pointer-events: none;
+}
+
+.intro:not([data-step="title"]) .scroll-cue {
+  opacity: 0;
 }
 
 .scroll-cue i {
@@ -1329,71 +1458,86 @@ input[type="radio"] {
   }
 }
 
-.houston-tag {
+.jpins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.jpin {
   position: absolute;
   left: 0;
   top: 0;
-  color: #f6f5fb;
-  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 20px;
+  margin-top: -10px;
+  color: #fff;
   opacity: 0;
-  transition: opacity 400ms ease;
-  white-space: nowrap;
+  transition: opacity 450ms ease;
+  will-change: transform;
 }
 
-.houston-tag::before {
-  content: "";
-  position: absolute;
-  left: -4px;
-  top: 50%;
+.jpin > i {
+  position: relative;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: #ffc59a;
+  box-shadow: 0 0 10px 2px rgb(255 138 61 / 0.55);
+}
+
+.jpin > span {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgb(8 10 16 / 0.74);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.jpin[data-state="visited"] {
+  opacity: 0.8;
+}
+
+.jpin[data-state="visited"] > i {
   width: 7px;
   height: 7px;
-  margin-top: -3.5px;
-  border-radius: 999px;
-  border: 1px solid currentColor;
+  margin-left: -3.5px;
 }
 
-.houston-tag span {
-  display: inline-block;
-  margin-left: 12px;
-  padding-left: 22px;
-  background: linear-gradient(currentColor, currentColor) left center / 16px 1px no-repeat;
+.jpin[data-state="current"] {
+  opacity: 1;
 }
 
-.porthole-caption {
+.jpin[data-state="current"] > span {
+  opacity: 1;
+}
+
+.jpin[data-state="current"] > i::after {
+  content: "";
   position: absolute;
-  left: 74%;
-  top: calc(47% + 17vmin + 22px);
-  transform: translateX(-50%);
-  opacity: 0.85;
-  white-space: nowrap;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1.5px solid #ffc59a;
+  animation: pin-pulse 2.6s ease-out infinite;
 }
 
 @media (max-aspect-ratio: 4/5) {
-  .porthole-caption {
-    left: 50%;
-    top: calc(64% + 30vmin + 16px);
-  }
-
-  .beat-top-portrait {
+  .intro .beat {
     justify-content: flex-start;
-    padding-top: 20vh;
+    padding-top: max(92px, 12vh);
   }
-}
 
-.log-list {
-  display: grid;
-  gap: 0.15em;
-}
-
-.log-list > div {
-  display: grid;
-  grid-template-columns: 4.6rem 1fr;
-  align-items: baseline;
-  gap: 1rem;
+  .intro .beat.items-center {
+    justify-content: center;
+    padding-top: 0;
+  }
 }
 
 /* static (reduced motion / no WebGL) intro */
@@ -1403,9 +1547,13 @@ input[type="radio"] {
 }
 
 .intro[data-mode="static"] .intro-stage {
-  position: relative;
   height: auto;
   overflow: visible;
+}
+
+.intro[data-mode="static"] .intro-scrim,
+.intro[data-mode="static"] .intro-rail {
+  display: none;
 }
 
 .intro[data-mode="static"] .intro-fallback {
@@ -1415,7 +1563,7 @@ input[type="radio"] {
 
 .intro[data-mode="static"] .beat {
   position: relative;
-  min-height: 80vh;
+  min-height: 46vh;
   opacity: 1;
   --v: 1;
   z-index: 1;
@@ -1429,9 +1577,14 @@ input[type="radio"] {
   filter: none;
 }
 
+.intro[data-mode="static"] .beat-first {
+  min-height: 86vh;
+}
+
 .intro[data-mode="static"] .scroll-cue,
 .intro[data-mode="static"] .hud,
-.intro[data-mode="static"] .skip-intro {
+.intro[data-mode="static"] .skip-intro,
+.intro[data-mode="static"] .jpins {
   display: none;
 }
 

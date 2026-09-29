@@ -8,8 +8,7 @@ export default function Footer() {
         <div className="space-y-2">
           <p className="font-medium">© {new Date().getFullYear()} {profile.name}</p>
           <p className="muted max-w-[60ch]">
-            Demos use made-up data. Earth imagery from NASA Earth Observatory. The 3D audit machine is adapted from Eugene Shilow&apos;s
-            agentic-3d-templates.
+            Demos use made-up data. Night imagery is NASA Black Marble, served by NASA GIBS; daytime Earth from NASA Blue Marble.
           </p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
