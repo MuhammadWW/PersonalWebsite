@@ -1165,6 +1165,354 @@ input[type="radio"] {
   pointer-events: none;
 }
 
+/* ---------- 3D exhibit viewer ---------- */
+
+.dv {
+  --dv-accent: #ff7a1a;
+  position: relative;
+  height: 640px;
+  overflow: hidden;
+  border-radius: var(--radius-shape-xl);
+  background: radial-gradient(120% 90% at 50% 30%, #1d2027 0%, #111317 70%);
+  color: #f1f0f7;
+  isolation: isolate;
+}
+
+.dv-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.dv-heading {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.dv-heading::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--dv-accent);
+}
+
+.dv-index {
+  margin-left: auto;
+  color: #8f9099;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dv-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dv-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  will-change: transform;
+}
+
+.dv-label > i {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--dv-accent);
+  box-shadow: 0 0 0 4px rgb(255 122 26 / 0.22);
+}
+
+.dv-label > div {
+  margin-top: -13px;
+  padding: 6px 10px;
+  border-left: 1px solid rgb(255 122 26 / 0.6);
+  background: rgb(14 15 19 / 0.78);
+  border-radius: 0 8px 8px 0;
+}
+
+.dv-label b {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dv-label small {
+  display: block;
+  margin-top: 2px;
+  color: #a6a8b1;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.dv-tip {
+  position: absolute;
+  z-index: 2;
+  max-width: 280px;
+  padding: 10px 13px;
+  border: 1px solid #34363d;
+  border-radius: 12px;
+  background: rgb(20 21 26 / 0.94);
+  pointer-events: none;
+}
+
+.dv-tip strong {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.dv-tip p {
+  margin: 4px 0 0;
+  color: #c5c6d0;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.dv-door {
+  position: absolute;
+  left: 28px;
+  top: 62px;
+  padding: 14px 16px;
+  border: 1px solid #34363d;
+  border-radius: 16px;
+  background: rgb(20 21 26 / 0.88);
+  min-width: 230px;
+}
+
+.dv-door-k {
+  margin: 0 0 6px;
+  color: #8f9099;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dv-door strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dv-door p:last-child {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 6px 0 0;
+  color: #c5c6d0;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.dv-door span {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgb(255 93 77 / 0.18);
+  color: #ff8b7e;
+  font-weight: 600;
+}
+
+.dv-door span[data-ok="true"] {
+  background: rgb(52 211 153 / 0.16);
+  color: #6ee7b7;
+}
+
+.dv-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 52px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.dv-modes {
+  display: flex;
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid #2f3137;
+  border-radius: 999px;
+  background: rgb(20 21 26 / 0.86);
+}
+
+.dv-modes button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #b9bac3;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    color 200ms ease;
+}
+
+.dv-modes button:hover {
+  background: rgb(255 255 255 / 0.06);
+  color: #fff;
+}
+
+.dv-modes button[aria-pressed="true"] {
+  background: var(--dv-accent);
+  color: #211c0d;
+}
+
+.dv-views {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.dv-cap {
+  margin-right: 8px;
+  color: #757780;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dv-views button {
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: #8f9099;
+  padding: 5px 9px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.dv-views button:hover,
+.dv-views button[aria-pressed="true"] {
+  color: #fff;
+}
+
+.dv-views button[aria-pressed="true"]:not(.dv-spin)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--dv-accent);
+}
+
+.dv-views button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.dv-div {
+  width: 1px;
+  height: 13px;
+  margin: 0 8px;
+  background: #3a3c43;
+}
+
+.dv-spin {
+  display: grid;
+  place-items: center;
+}
+
+.dv-hint,
+.dv-loading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  color: #8f9099;
+  font-size: 11.5px;
+  pointer-events: none;
+}
+
+.dv-hint {
+  bottom: 18px;
+}
+
+.dv-loading {
+  top: 50%;
+}
+
+.dv button:focus-visible {
+  outline: 2px solid var(--dv-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+  .dv {
+    height: 560px;
+  }
+
+  .dv-heading {
+    left: 20px;
+    right: 20px;
+    top: 18px;
+    font-size: 12px;
+  }
+
+  .dv-index {
+    display: none;
+  }
+
+  .dv-modes button {
+    padding: 9px 10px;
+    font-size: 11.5px;
+    gap: 5px;
+  }
+
+  .dv-modes svg {
+    display: none;
+  }
+
+  .dv-controls {
+    left: 10px;
+    right: 10px;
+    bottom: 44px;
+    transform: none;
+  }
+
+  .dv-cap {
+    display: none;
+  }
+
+  .dv-door {
+    left: 16px;
+    right: 16px;
+    top: 50px;
+    min-width: 0;
+  }
+
+  .dv-label small {
+    display: none;
+  }
+}
+
 /* ---------- intro ---------- */
 
 @property --v {

@@ -9,7 +9,7 @@ function Loading() {
 }
 
 const demos: Record<DemoId, ComponentType> = {
-  doorfit: dynamic(() => import("./demos/DoorFit"), { ssr: false, loading: Loading }),
+  destiny: dynamic(() => import("./destiny/DestinyViewer"), { ssr: false, loading: Loading }),
   reflection: dynamic(() => import("./demos/ReflectionDemo"), { ssr: false, loading: Loading }),
   watermark: dynamic(() => import("./demos/WatermarkDetector"), { ssr: false, loading: Loading }),
   landing: dynamic(() => import("./demos/LandingSim"), { ssr: false, loading: Loading }),

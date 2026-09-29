@@ -1,6 +1,6 @@
 export type Lens = "product" | "engineering" | "program";
 
-export type DemoId = "doorfit" | "reflection" | "watermark" | "landing" | "voice" | "parts";
+export type DemoId = "destiny" | "reflection" | "watermark" | "landing" | "voice" | "parts";
 
 export type Section = {
   heading: string;
@@ -418,10 +418,12 @@ export const projects: Project[] = [
         ],
       },
     ],
+    boundary:
+      "The 3D model is a rebuild for this site from the design description, not the original Inventor CAD. Dimensions are illustrative, and the screens show sample content.",
     demo: {
-      id: "doorfit",
-      title: "Door fit check",
-      blurb: "Switch the module between assembled and transport mode and see which parts clear a seven-foot door.",
+      id: "destiny",
+      title: "The exhibit in 3D",
+      blurb: "Turn the full-size design, cut it open, break it down for transport and watch each part clear a seven-foot door.",
     },
     cover: "/images/work/destiny-module.jpg",
     featured: true,
