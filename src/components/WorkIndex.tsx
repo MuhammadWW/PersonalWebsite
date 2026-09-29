@@ -1,9 +1,9 @@
 "use client";
 
+import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { lensLabels, projects, type Lens } from "@/content/projects";
-import ProjectGlyph from "./ProjectGlyph";
 
 const filters: ("all" | Lens)[] = ["all", "product", "engineering", "program"];
 
@@ -18,44 +18,41 @@ export default function WorkIndex() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap items-center gap-2" role="group" aria-label="Filter work by discipline">
-        <span className="label muted mr-2">Read as</span>
+      <div className="mb-4 flex flex-wrap items-center gap-2" role="group" aria-label="Filter projects by discipline">
         {filters.map((f) => (
-          <button key={f} type="button" className="pill" aria-pressed={lens === f} onClick={() => setLens(f)}>
-            <span>{f === "all" ? "Everything" : lensLabels[f]}</span>
+          <button key={f} type="button" className="fchip" aria-pressed={lens === f} onClick={() => setLens(f)}>
+            <Check size={18} aria-hidden />
+            {f === "all" ? "All" : lensLabels[f]}
           </button>
         ))}
       </div>
 
-      <ol className="list-none p-0 m-0">
-        {visible.map((p, i) => (
+      <ul className="m-0 list-none p-0">
+        {visible.map((p) => (
           <li key={p.slug}>
-            <Link href={`/work/${p.slug}/`} className="work-row group">
-              <span className="label muted pt-2">{String(i + 1).padStart(2, "0")}</span>
+            <Link href={`/work/${p.slug}/`} className="work-row state">
               <div className="min-w-0">
-                <div className="label muted mb-2">
-                  {p.org} · {p.period}
-                </div>
-                <h3 className="work-title display-m">{p.title}</h3>
-                <p className="mt-3 max-w-[70ch] text-[0.98rem] muted">{p.outcome}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <p className="label muted">
+                  {p.org} · {p.year}
+                </p>
+                <h4 className="title-l mt-1">{p.title}</h4>
+                <p className="muted mt-1 max-w-[72ch] text-[0.95rem]">{p.outcome}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
                   {p.lenses.map((l) => (
                     <span key={l} className="chip">
                       {lensLabels[l]}
                     </span>
                   ))}
-                  {p.demo ? <span className="chip" style={{ color: "var(--color-signal-ink)", borderColor: "currentColor" }}>Live demo</span> : null}
+                  {p.demo ? <span className="chip chip-accent">Demo</span> : null}
                 </div>
               </div>
-              <div className="work-glyph">
-                <div className="porthole text-ink transition-transform duration-500 group-hover:scale-[1.04]">
-                  <ProjectGlyph slug={p.slug} className="absolute inset-0 m-auto h-[74%] w-[74%]" />
-                </div>
-              </div>
+              <span className="work-arrow" aria-hidden>
+                <ArrowRight size={20} />
+              </span>
             </Link>
           </li>
         ))}
-      </ol>
+      </ul>
     </div>
   );
 }

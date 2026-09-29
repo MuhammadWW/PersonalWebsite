@@ -1,5 +1,7 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { lensLabels, projects, type Project } from "@/content/projects";
+import AuditMachine from "./AuditMachine";
 import DemoSlot from "./DemoSlot";
 import ProjectGlyph from "./ProjectGlyph";
 
@@ -38,8 +40,9 @@ export default function CaseStudy({ project }: { project: Project }) {
   return (
     <main id="main" className="content-over pt-16">
       <header className="wrap pb-12 pt-14 sm:pt-20">
-        <Link href="/#work" className="label muted no-underline hover:text-ink">
-          ← All work
+        <Link href="/#work" className="btn btn-text -ml-3">
+          <ArrowLeft size={18} aria-hidden />
+          All projects
         </Link>
         <div className="mt-10 grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-8">
@@ -78,10 +81,25 @@ export default function CaseStudy({ project }: { project: Project }) {
           ))}
         </div>
         <p className="mt-6 max-w-[80ch] text-[0.95rem] muted">
-          <span className="label mr-2">Role</span>
+          <span className="label mr-2 text-on-surface">Role</span>
           {project.role}
         </p>
       </section>
+
+      {project.slug === "audit-tool" ? (
+        <section className="wrap mt-14" aria-labelledby="machine-title">
+          <div className="mb-5 grid gap-3 md:grid-cols-12 md:items-end">
+            <h2 id="machine-title" className="display-m md:col-span-7">
+              The five steps, as a machine
+            </h2>
+            <p className="muted md:col-span-5">
+              A 3D model of the pipeline, with made-up data on every screen. Switch to &ldquo;One line&rdquo; to follow a single invoice row
+              from the export to sign-off, or click a station to see what it does.
+            </p>
+          </div>
+          <AuditMachine />
+        </section>
+      ) : null}
 
       <article className="wrap py-16 sm:py-20">
         <div className="grid gap-x-12 md:grid-cols-12">
@@ -98,13 +116,13 @@ export default function CaseStudy({ project }: { project: Project }) {
                 ))}
                 {project.demo ? (
                   <li>
-                    <a href="#demo" className="no-underline text-signal-ink hover:underline">
-                      Try the demo
+                    <a href="#demo" className="font-medium text-primary no-underline hover:underline">
+                      Demo
                     </a>
                   </li>
                 ) : null}
               </ol>
-              <p className="label muted mb-3 mt-10">Stack & methods</p>
+              <p className="label muted mb-3 mt-10">Tools and methods</p>
               <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
                 {project.stack.map((s) => (
                   <li key={s} className="chip">
@@ -125,7 +143,7 @@ export default function CaseStudy({ project }: { project: Project }) {
             ))}
             {project.boundary ? (
               <div className="callout mt-4">
-                <p className="label mb-2">What&apos;s real, and what&apos;s rebuilt</p>
+                <p className="label mb-2">{project.demo ? "About the demo" : "What isn't shown"}</p>
                 <p className="m-0">{project.boundary}</p>
               </div>
             ) : null}
@@ -134,11 +152,11 @@ export default function CaseStudy({ project }: { project: Project }) {
       </article>
 
       {project.demo ? (
-        <section id="demo" className="scroll-mt-20 border-t border-line bg-paper-2">
+        <section id="demo" className="scroll-mt-20 bg-surface-container-low">
           <div className="wrap py-16 sm:py-20">
             <div className="mb-8 grid gap-4 md:grid-cols-12 md:items-end">
               <div className="md:col-span-7">
-                <p className="label muted mb-4">Demonstration built for this portfolio</p>
+                <p className="label muted mb-3">Demo</p>
                 <h2 className="display-m">{project.demo.title}</h2>
               </div>
               <p className="md:col-span-5 muted">{project.demo.blurb}</p>
@@ -148,13 +166,19 @@ export default function CaseStudy({ project }: { project: Project }) {
         </section>
       ) : null}
 
-      <nav aria-label="Next case study" className="border-t border-line">
-        <Link href={`/work/${next.slug}/`} className="wrap group flex flex-col gap-3 py-14 no-underline sm:flex-row sm:items-end sm:justify-between">
+      <nav aria-label="Next project" className="wrap py-10">
+        <Link
+          href={`/work/${next.slug}/`}
+          className="state group flex flex-col gap-3 rounded-[28px] bg-surface-container-low p-7 no-underline sm:flex-row sm:items-center sm:justify-between sm:p-9"
+        >
           <div>
-            <p className="label muted mb-3">Next case study</p>
-            <p className="display-m transition-colors group-hover:text-signal-ink">{next.title}</p>
+            <p className="label muted mb-2">Next project</p>
+            <p className="display-m">{next.title}</p>
+            <p className="muted mt-1">{next.org}</p>
           </div>
-          <span className="label muted">{next.org} →</span>
+          <span className="work-arrow grid h-12 w-12 place-items-center rounded-full bg-primary-container text-on-primary-container" aria-hidden>
+            <ArrowRight size={22} />
+          </span>
         </Link>
       </nav>
     </main>

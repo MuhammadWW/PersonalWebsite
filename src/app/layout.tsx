@@ -1,19 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Jost } from "next/font/google";
+import { Roboto_Flex, Roboto_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
 import { profile } from "@/content/profile";
 import { NOINDEX, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const jost = Jost({
-  variable: "--font-jost",
+const robotoFlex = Roboto_Flex({
+  variable: "--font-roboto-flex",
   subsets: ["latin"],
+  axes: ["wdth", "opsz"],
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
@@ -44,16 +45,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0e12",
+  themeColor: "#121318",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jost.variable} ${plexMono.variable} antialiased`}>
+    <html lang="en" className={`${robotoFlex.variable} ${robotoMono.variable} antialiased`}>
       <body>
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-ink focus:px-3 focus:py-2 focus:text-paper">
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-inverse-surface focus:px-4 focus:py-2 focus:text-inverse-on-surface">
           Skip to content
         </a>
         <Nav />

@@ -170,10 +170,9 @@ export default function IntroExperience() {
         <div className="beat" data-tone="light" style={{ "--v": 1 } as CSSProperties}>
           <div className="beat-inner">
             <h1>
-              <SplitText text="Hey, I'm" className="lead block mb-3" />
-              <SplitText text="Muhammad." className="display-xl block" />
+              <SplitText text="Muhammad Wadiwala" className="display-xl block max-w-[10ch]" />
             </h1>
-            <p className="label mt-8 opacity-80">Product · Engineering · Program</p>
+            <p className="lead mt-7 max-w-[34ch] opacity-90">Electrical engineering and business at Texas A&amp;M, class of 2027.</p>
           </div>
         </div>
 
@@ -191,13 +190,13 @@ export default function IntroExperience() {
 
         <div className="beat" data-tone="dark">
           <div className="beat-inner">
-            <SplitText text="Since then, I've worked at" className="lead block mb-6" />
+            <SplitText text="Internships so far" className="lead block mb-6" />
             <div className="log-list display-m">
               {[
                 ["2023", "NASA Johnson Space Center"],
                 ["2025", "JPMorgan Chase"],
                 ["2026", "Microsoft"],
-                ["2026", "SpaceX Starlink"],
+                ["2026", "SpaceX, Starlink"],
               ].map(([year, org]) => (
                 <div key={org}>
                   <SplitText text={year} className="label" />
@@ -210,18 +209,17 @@ export default function IntroExperience() {
 
         <div className="beat" data-tone="dark">
           <div className="beat-inner">
-            <SplitText text="What I actually do:" className="lead block mb-3" />
-            <SplitText text="turn messy problems into products people trust." className="display-l block max-w-[16ch]" />
+            <SplitText text="Most of that work was" className="lead block mb-3" />
+            <SplitText text="internal tools, data and the process around them." className="display-l block max-w-[17ch]" />
           </div>
         </div>
 
         <div className="beat items-center text-center" data-tone="light">
           <div className="beat-inner">
-            <SplitText text="Let's take a look." className="lead block mb-3" />
             <SplitText text="Go for launch." className="display-xl block" />
             <div className="mt-10">
               <a href="#work" className="pill interactive">
-                <span>See the work</span>
+                <span>Projects</span>
                 <span aria-hidden="true">↓</span>
               </a>
             </div>
@@ -231,7 +229,7 @@ export default function IntroExperience() {
         <div className="beat" data-tone="light">
           <div className="beat-inner">
             <p className="label mb-4 opacity-80">Low Earth orbit · 408 km</p>
-            <SplitText text="Here's what I've been building." className="display-m block max-w-[14ch]" />
+            <SplitText text="About where the ISS flies. In 2023 I worked on its crew Wi-Fi." className="display-m block max-w-[19ch]" />
           </div>
         </div>
 

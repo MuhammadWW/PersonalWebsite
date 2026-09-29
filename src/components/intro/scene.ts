@@ -982,7 +982,7 @@ export function createIntroScene(canvas: HTMLCanvasElement, options: IntroSceneO
       ring = port * 0.9;
       usePorthole = true;
       const u = portrait ? 0.5 : 0.74;
-      const v = portrait ? 0.3 : 0.53;
+      const v = portrait ? 0.36 : 0.53;
       quadUniforms.uCenter.value.set(u, v);
       if (radius > 0.5) {
         // Put Houston on the porthole's centre at a fixed angular radius, whatever the viewport.

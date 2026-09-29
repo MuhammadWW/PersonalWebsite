@@ -33,19 +33,35 @@ function simulate(c: Config): Result {
   const hs: number[] = [];
   const vs: number[] = [];
   let k = 0;
-  while (h > 0 && t < 400) {
+  let hPrev = h;
+  let vPrev = v;
+  const advance = (dt: number) => {
     const rho = c.body === "earth" ? 1.225 * Math.exp(-h / 8500) : 0;
-    if (!chute && c.chuteArea > 0 && h <= c.chuteAlt && c.body === "earth") chute = true;
-    if (!burning && !fuelOut && h <= c.burnAlt && c.tw > 0) burning = true;
     const area = 80 + (c.airBrakes && h < 5000 ? 45 : 0);
     const cdA = 0.75 * area + (chute ? 1.5 * c.chuteArea : 0);
     const drag = 0.5 * rho * v * v * cdA * (v < 0 ? 1 : -1);
     const thrust = burning ? c.tw * MASS * g : 0;
     const a = (drag + thrust) / MASS - g;
     maxG = Math.max(maxG, Math.abs(a + g) / 9.81);
-    v += a * DT;
-    h += v * DT;
-    t += DT;
+    v += a * dt;
+    h += v * dt;
+    t += dt;
+  };
+  while (h > 0 && t < 400) {
+    hPrev = h;
+    vPrev = v;
+    if (!chute && c.chuteArea > 0 && h <= c.chuteAlt && c.body === "earth") chute = true;
+    const armed = !burning && !fuelOut && c.tw > 0;
+    if (armed && h > c.burnAlt && v < 0 && h + v * DT <= c.burnAlt) {
+      // Light the engine exactly at the burn altitude, not at the next step boundary.
+      const dt1 = (h - c.burnAlt) / -v;
+      advance(dt1);
+      burning = true;
+      advance(DT - dt1);
+    } else {
+      if (armed && h <= c.burnAlt) burning = true;
+      advance(DT);
+    }
     if (burning && v >= 0) {
       burning = false;
       fuelOut = true;
@@ -58,10 +74,13 @@ function simulate(c: Config): Result {
       vs.push(v);
     }
   }
+  // Ground contact happens inside the last step; interpolate so touchdown speed doesn't jump between step sizes.
+  const f = h < 0 && hPrev > 0 ? hPrev / (hPrev - h) : 1;
+  const vTouch = vPrev + (v - vPrev) * f;
   ts.push(t);
   hs.push(0);
-  vs.push(v);
-  return { t: ts, h: hs, v: vs, touchdown: Math.abs(v), maxG, stoppedHigh };
+  vs.push(vTouch);
+  return { t: ts, h: hs, v: vs, touchdown: Math.abs(vTouch), maxG, stoppedHigh };
 }
 
 /** Finds the landing-burn start altitude that lands closest to a target touchdown speed. */
@@ -73,11 +92,18 @@ function tuneBurn(base: Config, target: number): number {
     const err = Math.abs(r.touchdown - target);
     if (err < best.err) best = { alt, err };
   }
-  for (let alt = best.alt - 10; alt <= best.alt + 10; alt += 0.5) {
-    const r = simulate({ ...base, burnAlt: alt });
-    if (r.stoppedHigh) continue;
-    const err = Math.abs(r.touchdown - target);
-    if (err < best.err) best = { alt, err };
+  for (const [span, step] of [
+    [10, 0.5],
+    [0.5, 0.02],
+    [0.03, 0.001],
+  ]) {
+    const center = best.alt;
+    for (let alt = center - span; alt <= center + span; alt += step) {
+      const r = simulate({ ...base, burnAlt: alt });
+      if (r.stoppedHigh) continue;
+      const err = Math.abs(r.touchdown - target);
+      if (err < best.err) best = { alt, err };
+    }
   }
   return best.alt;
 }

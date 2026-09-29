@@ -16,21 +16,18 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "linear-gradient(180deg, #0b0f16 0%, #14202f 62%, #3b4a5c 100%)",
-          color: "#f4f2ed",
+          background: "linear-gradient(180deg, #0d0e13 0%, #121318 55%, #1e2a44 100%)",
+          color: "#f1f0f7",
           fontFamily: "sans-serif",
           position: "relative",
         }}
       >
-        <div style={{ display: "flex", fontSize: 22, letterSpacing: 4, textTransform: "uppercase", opacity: 0.75 }}>wadiwala.net</div>
+        <div style={{ display: "flex", fontSize: 24, color: "#b1c5ff" }}>wadiwala.net</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 34, opacity: 0.85 }}>Hey, I&apos;m</div>
           <div style={{ fontSize: 112, lineHeight: 1, letterSpacing: -3 }}>Muhammad Wadiwala</div>
-          <div style={{ fontSize: 34, marginTop: 28, opacity: 0.85 }}>I turn messy problems into products people trust.</div>
+          <div style={{ fontSize: 34, marginTop: 28, color: "#c5c6d0" }}>Electrical engineering and business, Texas A&amp;M</div>
         </div>
-        <div style={{ display: "flex", fontSize: 22, letterSpacing: 3, textTransform: "uppercase", opacity: 0.7 }}>
-          NASA · JPMorgan Chase · Microsoft · SpaceX
-        </div>
+        <div style={{ display: "flex", fontSize: 26, color: "#c5c6d0" }}>NASA · JPMorgan Chase · Microsoft · SpaceX</div>
         <div
           style={{
             position: "absolute",
@@ -39,12 +36,12 @@ export default async function Image() {
             width: 900,
             height: 900,
             borderRadius: 9999,
-            border: "2px solid rgba(255,190,140,0.55)",
-            boxShadow: "0 0 80px rgba(255,150,90,0.35)",
+            border: "2px solid rgba(177,197,255,0.5)",
+            boxShadow: "0 0 90px rgba(90,130,230,0.35)",
             display: "flex",
           }}
         />
-        <div style={{ position: "absolute", right: 150, top: 118, width: 18, height: 18, borderRadius: 9999, background: "#c44b22", display: "flex" }} />
+        <div style={{ position: "absolute", right: 150, top: 118, width: 18, height: 18, borderRadius: 9999, background: "#ff7a1a", display: "flex" }} />
       </div>
     ),
     { ...size },
