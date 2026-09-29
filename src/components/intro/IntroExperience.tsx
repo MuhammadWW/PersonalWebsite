@@ -180,7 +180,7 @@ export default function IntroExperience() {
           <div className="beat-inner">
             <div className="max-w-[16ch] sm:max-w-none">
               <SplitText text="I grew up in Houston," className="lead block mb-3" />
-              <SplitText text="ten minutes from NASA." className="display-l block max-w-[11ch]" />
+              <SplitText text="Ten minutes from NASA." className="display-l block max-w-[11ch]" />
             </div>
           </div>
           <p className="porthole-caption label" aria-hidden="true">
@@ -193,7 +193,9 @@ export default function IntroExperience() {
             <SplitText text="Internships so far" className="lead block mb-6" />
             <div className="log-list display-m">
               {[
+                ["2022", "Southwest Airlines"],
                 ["2023", "NASA Johnson Space Center"],
+                ["2024", "U.S. Health and Human Services"],
                 ["2025", "JPMorgan Chase"],
                 ["2026", "Microsoft"],
                 ["2026", "SpaceX, Starlink"],

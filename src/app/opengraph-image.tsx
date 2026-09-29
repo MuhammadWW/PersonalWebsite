@@ -27,7 +27,7 @@ export default async function Image() {
           <div style={{ fontSize: 112, lineHeight: 1, letterSpacing: -3 }}>Muhammad Wadiwala</div>
           <div style={{ fontSize: 34, marginTop: 28, color: "#c5c6d0" }}>Electrical engineering and business, Texas A&amp;M</div>
         </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#c5c6d0" }}>NASA · JPMorgan Chase · Microsoft · SpaceX</div>
+        <div style={{ display: "flex", fontSize: 26, color: "#c5c6d0" }}>Southwest Airlines · NASA · HHS · JPMorgan Chase · Microsoft · SpaceX</div>
         <div
           style={{
             position: "absolute",
