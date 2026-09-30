@@ -50,12 +50,12 @@ export const STEPS: Step[] = [
     look: look({ glow: [1, 0.5, 0.22], space: [0.03, 0.03, 0.07], margin: -4 }),
   },
   {
-    id: "karachi",
-    pin: "Karachi",
-    name: "Karachi",
-    lat: 24.86,
-    lon: 67.01,
-    cam: { h: 260, d: 500, heading: 20 },
+    id: "pakistan",
+    pin: "Pakistan",
+    name: "Pakistan",
+    lat: 29.9,
+    lon: 69.6,
+    cam: { h: 950, d: 1350, heading: 20 },
     look: look({ glow: [1, 0.42, 0.14], space: [0.12, 0.05, 0.03], tint: [1.05, 0.98, 0.9], margin: 2.5, azimuth: -55 }),
   },
   {

@@ -63,7 +63,7 @@ export const abroad: AbroadStay[] = [
   {
     id: "merida",
     theme: "merida",
-    kicker: "Research abroad · Texas A&M IRAP",
+    kicker: "Research abroad · Summer 2023",
     place: "Mérida, Yucatán",
     program: "Yucatán Initiative, Introduction to Research Abroad Program",
     coords: "20.97° N, 89.62° W",

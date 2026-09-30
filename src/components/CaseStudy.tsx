@@ -2,6 +2,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { lensLabels, projects, type Project } from "@/content/projects";
 import DemoSlot from "./DemoSlot";
+import ProjectObject from "./objects/ProjectObject";
+import { hasObject, OBJECT_LABELS } from "./objects/slugs";
 import ProjectGlyph from "./ProjectGlyph";
 
 function Body({ lines }: { lines: string[] }) {
@@ -58,11 +60,17 @@ export default function CaseStudy({ project }: { project: Project }) {
               ))}
             </div>
           </div>
-          <div className="hidden md:col-span-4 md:block">
-            <div className="porthole ml-auto w-[min(100%,260px)] text-ink">
-              <ProjectGlyph slug={project.slug} className="absolute inset-0 m-auto h-[72%] w-[72%]" />
+          {hasObject(project.slug) ? (
+            <div className="md:col-span-4">
+              <ProjectObject slug={project.slug} label={OBJECT_LABELS[project.slug]} />
             </div>
-          </div>
+          ) : (
+            <div className="hidden md:col-span-4 md:block">
+              <div className="porthole ml-auto w-[min(100%,260px)] text-ink">
+                <ProjectGlyph slug={project.slug} className="absolute inset-0 m-auto h-[72%] w-[72%]" />
+              </div>
+            </div>
+          )}
         </div>
       </header>
 

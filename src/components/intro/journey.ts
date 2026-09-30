@@ -3,6 +3,7 @@ import { Line2 } from "three/examples/jsm/lines/Line2.js";
 import { LineGeometry } from "three/examples/jsm/lines/LineGeometry.js";
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
 import { EARTH_KM, PATCHES, STEPS, type CamKey, type Look } from "./journey-data";
+import { PAKISTAN_BORDER } from "./pakistan-border";
 
 export type PinState = "current" | "visited" | "hidden";
 export type PinInfo = { x: number; y: number; visible: boolean; state: PinState };
@@ -409,6 +410,19 @@ export function createJourney(canvas: HTMLCanvasElement, options: JourneyOptions
     return { geo, mats, segments: n, from: a, to: b, arrive: pinSteps[r + 1], progress: 0, focus: 0 };
   });
 
+  /* Pakistan's border, lit while the opening steps are on screen */
+  const borderGeo = new LineGeometry();
+  borderGeo.setPositions(PAKISTAN_BORDER.flatMap(([lon, lat]) => dirOf(lat, lon).multiplyScalar(R + 1 * KM).toArray()));
+  const borderMats = ([6, 1.8] as const).map((lw) => {
+    const mat = new LineMaterial({ color: 0xffd2a8, linewidth: lw, transparent: true, opacity: 0, depthWrite: false });
+    routeMats.push({ mat, px: lw });
+    const line = new Line2(borderGeo, mat);
+    line.frustumCulled = false;
+    scene.add(line);
+    return mat;
+  });
+  let borderShow = 0;
+
   const tipGeo = new THREE.BufferGeometry();
   tipGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(3), 3));
   const tipMat = new THREE.PointsMaterial({ color: new THREE.Color(2.2, 1.5, 1.0), size: 9, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false });
@@ -630,6 +644,9 @@ export function createJourney(canvas: HTMLCanvasElement, options: JourneyOptions
     const altKm = placeCamera(key, lk, hump);
     camera.updateProjectionMatrix();
     updateRoutes(dt);
+    borderShow += ((step <= 1 ? 1 : 0) - borderShow) * (1 - Math.exp(-dt * 3));
+    borderMats[0].opacity = 0.2 * borderShow;
+    borderMats[1].opacity = 0.9 * borderShow;
     updateTrain(time, STEPS[step].id === "orbit" ? smooth(0.4, 1, u) : 0);
 
     renderer.setRenderTarget(rt);
@@ -705,6 +722,7 @@ export function createJourney(canvas: HTMLCanvasElement, options: JourneyOptions
       glareTex.dispose();
       textures.forEach((t) => t.dispose());
       routes.forEach((r) => r.geo.dispose());
+      borderGeo.dispose();
       [scene, compositeScene].forEach((s) =>
         s.traverse((obj) => {
           const mesh = obj as THREE.Mesh;

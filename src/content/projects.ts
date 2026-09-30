@@ -112,7 +112,8 @@ export const projects: Project[] = [
         ],
       },
     ],
-    boundary: "The real tool runs on confidential Microsoft cost data, so none of it is shown here.",
+    boundary: "The real tool runs on confidential Microsoft cost data, so none of it is shown here. The 3D model is an illustration.",
+    cover: "/images/work/audit-tool.jpg",
     featured: true,
   },
   {
@@ -178,6 +179,7 @@ export const projects: Project[] = [
       },
     ],
     boundary: "This was a fellowship design exercise, not a launched JPMorgan Chase product, and no internal material is shown here.",
+    cover: "/images/work/mentorship-hub.jpg",
     featured: true,
   },
   {
@@ -239,6 +241,7 @@ export const projects: Project[] = [
       },
     ],
     boundary: "The report, data and workspace are internal, so none of them are shown here.",
+    cover: "/images/work/report-exports.jpg",
     featured: true,
   },
   {
@@ -301,6 +304,7 @@ export const projects: Project[] = [
       },
     ],
     boundary: "Network names, device identifiers, logs and operating details stay internal. Nothing on this page is station data.",
+    cover: "/images/work/iss-wifi.jpg",
     featured: true,
   },
   {
@@ -364,6 +368,7 @@ export const projects: Project[] = [
       },
     ],
     boundary: "Internal prompts, documents and screenshots aren't shown. The numbers above describe how the system was built, not confidential content.",
+    cover: "/images/work/agents.jpg",
     featured: true,
   },
   {

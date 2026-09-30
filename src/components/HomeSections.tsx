@@ -5,6 +5,7 @@ import { education, experience, recognition } from "@/content/experience";
 import { projects } from "@/content/projects";
 import { withBase } from "@/lib/site";
 import MissionPatch from "./MissionPatch";
+import { hasObject, OBJECT_LABELS } from "./objects/slugs";
 import ProjectGlyph from "./ProjectGlyph";
 import WorkIndex from "./WorkIndex";
 import Carousel, { type CarouselItem } from "./ui/carousel";
@@ -29,7 +30,7 @@ export function WorkSection() {
       title: p.title,
       meta: `${p.org} · ${p.year}`,
       image: p.cover,
-      imageAlt: p.demo ? `Screenshot of the ${p.demo.title.toLowerCase()} demo` : undefined,
+      imageAlt: hasObject(p.slug) ? OBJECT_LABELS[p.slug] : p.demo ? `Screenshot: ${p.demo.title}` : undefined,
       fallback: <ProjectGlyph slug={p.slug} className="h-28 w-28" />,
     }));
 

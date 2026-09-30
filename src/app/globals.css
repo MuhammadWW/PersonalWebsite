@@ -1165,6 +1165,39 @@ input[type="radio"] {
   pointer-events: none;
 }
 
+/* ---------- project objects ---------- */
+
+.pobj {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+  border-radius: var(--radius-shape-xl);
+  background: radial-gradient(110% 90% at 50% 35%, #232730 0%, #121419 72%);
+}
+
+.pobj-host {
+  position: absolute;
+  inset: 0;
+}
+
+.pobj-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  margin: 0;
+  text-align: center;
+  color: #8f9099;
+  font-size: 11px;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .pobj {
+    height: 380px;
+  }
+}
+
 /* ---------- 3D exhibit viewer ---------- */
 
 .dv {

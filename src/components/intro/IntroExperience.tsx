@@ -63,11 +63,11 @@ function beatContent(id: string): ReactNode {
           <p className="lead mt-7 max-w-[34ch] opacity-90">Electrical engineering and business at Texas A&amp;M, class of 2027.</p>
         </>
       );
-    case "karachi":
+    case "pakistan":
       return (
         <>
           <p className="label mb-4 opacity-80">Where it started</p>
-          <SplitText text="Born in Karachi, Pakistan." className="display-l block max-w-[12ch]" />
+          <SplitText text="Born in Pakistan." className="display-l block max-w-[12ch]" />
         </>
       );
     case "houston":
